@@ -1,0 +1,428 @@
+﻿<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+<!-- EF Runtime content -->
+<edmx:Runtime>
+<!-- SSDL content -->
+<edmx:StorageModels>
+<Schema Namespace="PadariaBDModel.Store" Alias="Self" Provider="System.Data.SqlServerCe.4.0" ProviderManifestToken="4.0" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="PadariaBDModelStoreContainer">
+    <EntitySet Name="Clientes" EntityType="PadariaBDModel.Store.Clientes" store:Type="Tables" />
+    <EntitySet Name="ItensVendas" EntityType="PadariaBDModel.Store.ItensVendas" store:Type="Tables" />
+    <EntitySet Name="Lotes" EntityType="PadariaBDModel.Store.Lotes" store:Type="Tables" />
+    <EntitySet Name="Produtos" EntityType="PadariaBDModel.Store.Produtos" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="PadariaBDModel.Store.Usuarios" store:Type="Tables" />
+    <EntitySet Name="Vendas" EntityType="PadariaBDModel.Store.Vendas" store:Type="Tables" />
+    <AssociationSet Name="FK__ItensVendas__000000000000008A" Association="PadariaBDModel.Store.FK__ItensVendas__000000000000008A">
+      <End Role="Vendas" EntitySet="Vendas" />
+      <End Role="ItensVendas" EntitySet="ItensVendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItensVendas__000000000000008E" Association="PadariaBDModel.Store.FK__ItensVendas__000000000000008E">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="ItensVendas" EntitySet="ItensVendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lotes__00000000000000A6" Association="PadariaBDModel.Store.FK__Lotes__00000000000000A6">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="Lotes" EntitySet="Lotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vendas__0000000000000072" Association="PadariaBDModel.Store.FK__Vendas__0000000000000072">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Vendas" EntitySet="Vendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vendas__0000000000000076" Association="PadariaBDModel.Store.FK__Vendas__0000000000000076">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Vendas" EntitySet="Vendas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Cpf" Type="nvarchar" Nullable="false" MaxLength="11" />
+    <Property Name="Cidade" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Bairro" Type="nvarchar" Nullable="false" MaxLength="30" />
+    <Property Name="Endereco" Type="nvarchar" Nullable="false" MaxLength="40" />
+  </EntityType>
+  <EntityType Name="ItensVendas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Venda" Type="int" Nullable="false" />
+    <Property Name="Produto" Type="int" Nullable="false" />
+    <Property Name="Quantidade" Type="int" Nullable="false" />
+    <Property Name="Subtotal" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Lotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="nvarchar" Nullable="false" MaxLength="20" />
+    <Property Name="Produto" Type="int" Nullable="false" />
+    <Property Name="Validade" Type="datetime" />
+    <Property Name="Quantidade" Type="real" Nullable="false" />
+    <Property Name="PrecoCusto" Type="money" Nullable="false" />
+    <Property Name="Ativo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="nvarchar" MaxLength="13" />
+    <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="PrecoVenda" Type="money" Nullable="false" />
+    <Property Name="Unidade" Type="nvarchar" Nullable="false" MaxLength="3" />
+    <Property Name="Ativo" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Cpf" Type="nvarchar" Nullable="false" MaxLength="11" />
+    <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="16" />
+    <Property Name="Senha" Type="nvarchar" Nullable="false" MaxLength="16" />
+    <Property Name="Acesso" Type="nvarchar" Nullable="false" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="Vendas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Vendedor" Type="int" Nullable="false" />
+    <Property Name="Cliente" Type="int" />
+    <Property Name="DataVenda" Type="datetime" Nullable="false" />
+    <Property Name="Pagamento" Type="nvarchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK__ItensVendas__000000000000008A">
+    <End Role="Vendas" Type="PadariaBDModel.Store.Vendas" Multiplicity="1" />
+    <End Role="ItensVendas" Type="PadariaBDModel.Store.ItensVendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItensVendas">
+        <PropertyRef Name="Venda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItensVendas__000000000000008E">
+    <End Role="Produtos" Type="PadariaBDModel.Store.Produtos" Multiplicity="1" />
+    <End Role="ItensVendas" Type="PadariaBDModel.Store.ItensVendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItensVendas">
+        <PropertyRef Name="Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lotes__00000000000000A6">
+    <End Role="Produtos" Type="PadariaBDModel.Store.Produtos" Multiplicity="1" />
+    <End Role="Lotes" Type="PadariaBDModel.Store.Lotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lotes">
+        <PropertyRef Name="Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vendas__0000000000000072">
+    <End Role="Usuarios" Type="PadariaBDModel.Store.Usuarios" Multiplicity="1" />
+    <End Role="Vendas" Type="PadariaBDModel.Store.Vendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vendas">
+        <PropertyRef Name="Vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vendas__0000000000000076">
+    <End Role="Clientes" Type="PadariaBDModel.Store.Clientes" Multiplicity="0..1" />
+    <End Role="Vendas" Type="PadariaBDModel.Store.Vendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vendas">
+        <PropertyRef Name="Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
+</edmx:StorageModels>
+<!-- CSDL content -->
+<edmx:ConceptualModels>
+<Schema Namespace="PadariaBDModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PadariaBDEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="PadariaBDModel.Clientes" />
+    <EntitySet Name="ItensVendas" EntityType="PadariaBDModel.ItensVendas" />
+    <EntitySet Name="Lotes" EntityType="PadariaBDModel.Lotes" />
+    <EntitySet Name="Produtos" EntityType="PadariaBDModel.Produtos" />
+    <EntitySet Name="Usuarios" EntityType="PadariaBDModel.Usuarios" />
+    <EntitySet Name="Vendas" EntityType="PadariaBDModel.Vendas" />
+    <AssociationSet Name="FK__Vendas__0000000000000076" Association="PadariaBDModel.FK__Vendas__0000000000000076">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Vendas" EntitySet="Vendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItensVendas__000000000000008A" Association="PadariaBDModel.FK__ItensVendas__000000000000008A">
+      <End Role="Vendas" EntitySet="Vendas" />
+      <End Role="ItensVendas" EntitySet="ItensVendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ItensVendas__000000000000008E" Association="PadariaBDModel.FK__ItensVendas__000000000000008E">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="ItensVendas" EntitySet="ItensVendas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Lotes__00000000000000A6" Association="PadariaBDModel.FK__Lotes__00000000000000A6">
+      <End Role="Produtos" EntitySet="Produtos" />
+      <End Role="Lotes" EntitySet="Lotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Vendas__0000000000000072" Association="PadariaBDModel.FK__Vendas__0000000000000072">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Vendas" EntitySet="Vendas" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Cpf" Type="String" Nullable="false" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="Cidade" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="Bairro" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="Endereco" Type="String" Nullable="false" MaxLength="40" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Vendas" Relationship="PadariaBDModel.FK__Vendas__0000000000000076" FromRole="Clientes" ToRole="Vendas" />
+  </EntityType>
+  <EntityType Name="ItensVendas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Venda" Type="Int32" Nullable="false" />
+    <Property Name="Produto" Type="Int32" Nullable="false" />
+    <Property Name="Quantidade" Type="Int32" Nullable="false" />
+    <Property Name="Subtotal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="Vendas" Relationship="PadariaBDModel.FK__ItensVendas__000000000000008A" FromRole="ItensVendas" ToRole="Vendas" />
+    <NavigationProperty Name="Produtos" Relationship="PadariaBDModel.FK__ItensVendas__000000000000008E" FromRole="ItensVendas" ToRole="Produtos" />
+  </EntityType>
+  <EntityType Name="Lotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="false" />
+    <Property Name="Produto" Type="Int32" Nullable="false" />
+    <Property Name="Validade" Type="DateTime" />
+    <Property Name="Quantidade" Type="Single" Nullable="false" />
+    <Property Name="PrecoCusto" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Ativo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Produtos" Relationship="PadariaBDModel.FK__Lotes__00000000000000A6" FromRole="Lotes" ToRole="Produtos" />
+  </EntityType>
+  <EntityType Name="Produtos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Codigo" Type="String" MaxLength="13" Unicode="true" FixedLength="false" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="PrecoVenda" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Unidade" Type="String" Nullable="false" MaxLength="3" Unicode="true" FixedLength="false" />
+    <Property Name="Ativo" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ItensVendas" Relationship="PadariaBDModel.FK__ItensVendas__000000000000008E" FromRole="Produtos" ToRole="ItensVendas" />
+    <NavigationProperty Name="Lotes" Relationship="PadariaBDModel.FK__Lotes__00000000000000A6" FromRole="Produtos" ToRole="Lotes" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+    <Property Name="Cpf" Type="String" Nullable="false" MaxLength="11" Unicode="true" FixedLength="false" />
+    <Property Name="Login" Type="String" Nullable="false" MaxLength="16" Unicode="true" FixedLength="false" />
+    <Property Name="Senha" Type="String" Nullable="false" MaxLength="16" Unicode="true" FixedLength="false" />
+    <Property Name="Acesso" Type="String" Nullable="false" MaxLength="15" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Vendas" Relationship="PadariaBDModel.FK__Vendas__0000000000000072" FromRole="Usuarios" ToRole="Vendas" />
+  </EntityType>
+  <EntityType Name="Vendas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Vendedor" Type="Int32" Nullable="false" />
+    <Property Name="Cliente" Type="Int32" />
+    <Property Name="DataVenda" Type="DateTime" Nullable="false" />
+    <Property Name="Pagamento" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Clientes" Relationship="PadariaBDModel.FK__Vendas__0000000000000076" FromRole="Vendas" ToRole="Clientes" />
+    <NavigationProperty Name="ItensVendas" Relationship="PadariaBDModel.FK__ItensVendas__000000000000008A" FromRole="Vendas" ToRole="ItensVendas" />
+    <NavigationProperty Name="Usuarios" Relationship="PadariaBDModel.FK__Vendas__0000000000000072" FromRole="Vendas" ToRole="Usuarios" />
+  </EntityType>
+  <Association Name="FK__Vendas__0000000000000076">
+    <End Role="Clientes" Type="PadariaBDModel.Clientes" Multiplicity="0..1" />
+    <End Role="Vendas" Type="PadariaBDModel.Vendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vendas">
+        <PropertyRef Name="Cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItensVendas__000000000000008A">
+    <End Role="Vendas" Type="PadariaBDModel.Vendas" Multiplicity="1" />
+    <End Role="ItensVendas" Type="PadariaBDModel.ItensVendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendas">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItensVendas">
+        <PropertyRef Name="Venda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ItensVendas__000000000000008E">
+    <End Role="Produtos" Type="PadariaBDModel.Produtos" Multiplicity="1" />
+    <End Role="ItensVendas" Type="PadariaBDModel.ItensVendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ItensVendas">
+        <PropertyRef Name="Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Lotes__00000000000000A6">
+    <End Role="Produtos" Type="PadariaBDModel.Produtos" Multiplicity="1" />
+    <End Role="Lotes" Type="PadariaBDModel.Lotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produtos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Lotes">
+        <PropertyRef Name="Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Vendas__0000000000000072">
+    <End Role="Usuarios" Type="PadariaBDModel.Usuarios" Multiplicity="1" />
+    <End Role="Vendas" Type="PadariaBDModel.Vendas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Vendas">
+        <PropertyRef Name="Vendedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
+</edmx:ConceptualModels>
+<!-- C-S mapping content -->
+<edmx:Mappings>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PadariaBDModelStoreContainer" CdmEntityContainer="PadariaBDEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="PadariaBDModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+          <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+          <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+          <ScalarProperty Name="Endereco" ColumnName="Endereco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItensVendas">
+      <EntityTypeMapping TypeName="PadariaBDModel.ItensVendas">
+        <MappingFragment StoreEntitySet="ItensVendas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Venda" ColumnName="Venda" />
+          <ScalarProperty Name="Produto" ColumnName="Produto" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="Subtotal" ColumnName="Subtotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lotes">
+      <EntityTypeMapping TypeName="PadariaBDModel.Lotes">
+        <MappingFragment StoreEntitySet="Lotes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Produto" ColumnName="Produto" />
+          <ScalarProperty Name="Validade" ColumnName="Validade" />
+          <ScalarProperty Name="Quantidade" ColumnName="Quantidade" />
+          <ScalarProperty Name="PrecoCusto" ColumnName="PrecoCusto" />
+          <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produtos">
+      <EntityTypeMapping TypeName="PadariaBDModel.Produtos">
+        <MappingFragment StoreEntitySet="Produtos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="PrecoVenda" ColumnName="PrecoVenda" />
+          <ScalarProperty Name="Unidade" ColumnName="Unidade" />
+          <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="PadariaBDModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+          <ScalarProperty Name="Acesso" ColumnName="Acesso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendas">
+      <EntityTypeMapping TypeName="PadariaBDModel.Vendas">
+        <MappingFragment StoreEntitySet="Vendas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Vendedor" ColumnName="Vendedor" />
+          <ScalarProperty Name="Cliente" ColumnName="Cliente" />
+          <ScalarProperty Name="DataVenda" ColumnName="DataVenda" />
+          <ScalarProperty Name="Pagamento" ColumnName="Pagamento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
+</edmx:Mappings>
+</edmx:Runtime>
+<!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+<edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+<Connection><DesignerInfoPropertySet><DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" /></DesignerInfoPropertySet></Connection>
+<edmx:Options><DesignerInfoPropertySet><DesignerProperty Name="ValidateOnBuild" Value="True" /><DesignerProperty Name="EnablePluralization" Value="False" /><DesignerProperty Name="IncludeForeignKeysInModel" Value="True" /><DesignerProperty Name="UseLegacyProvider" Value="False" /><DesignerProperty Name="CodeGenerationStrategy" Value="None" /></DesignerInfoPropertySet></edmx:Options>
+<edmx:Diagrams >
+      <Diagram DiagramId="4aee2855b2a743e1a16045ddb35d1b83" Name="Diagram1">
+        <EntityTypeShape EntityType="PadariaBDModel.Clientes" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadariaBDModel.ItensVendas" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadariaBDModel.Lotes" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadariaBDModel.Produtos" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadariaBDModel.Usuarios" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PadariaBDModel.Vendas" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="PadariaBDModel.FK__Vendas__0000000000000076" ManuallyRouted="false" />
+        <AssociationConnector Association="PadariaBDModel.FK__ItensVendas__000000000000008A" ManuallyRouted="false" />
+        <AssociationConnector Association="PadariaBDModel.FK__ItensVendas__000000000000008E" ManuallyRouted="false" />
+        <AssociationConnector Association="PadariaBDModel.FK__Lotes__00000000000000A6" ManuallyRouted="false" />
+        <AssociationConnector Association="PadariaBDModel.FK__Vendas__0000000000000072" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+</edmx:Designer></edmx:Edmx>
